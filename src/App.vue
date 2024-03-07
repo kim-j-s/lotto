@@ -1,5 +1,5 @@
 <template>
-  <header>1등 가즈아~~</header>
+  <header>Good Luck</header>
   <div class="content">
     <ul class="chkList">
       <li v-for="(item, index) in numList" :key="index">
@@ -22,7 +22,7 @@
         v-model="inputValue"
         inpClass="tac"
         types="number"
-        maxlengths="8"
+        maxlengths="1"
         placeholder="횟수 입력"
       />
       <VButton text="여러번 돌리기" @click="action" />
