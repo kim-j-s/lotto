@@ -1,9 +1,9 @@
 <template>
   <transition name="fade">
-    <div class="popWrap" v-show="popup">
+    <div class="popWrap">
       <div class="popWrapContent">
         <div class="popHeader">
-          결과 목록
+          {{ 전달값 }}
           <button class="close" @click="closePopup"></button>
         </div>
         <div class="popContent">내용</div>

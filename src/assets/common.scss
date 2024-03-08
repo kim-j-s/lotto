@@ -261,6 +261,7 @@ header {
     }
   }
 }
+// popup
 
 .fade-enter-active,
 .fade-leave-active {
@@ -272,3 +273,7 @@ header {
   opacity: 0;
 }
 // popup
+
+.chkList {
+  display: none;
+}

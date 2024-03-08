@@ -40,7 +40,7 @@
       <!-- </div> -->
     </div>
 
-    <VPopup />
+    <VPopup v-model="popup" />
   </div>
 </template>
 
@@ -52,8 +52,12 @@ import VRst from './components/VRst.vue'
 import VPopup from './components/VPopup.vue'
 
 // set
+// 결과 값 전달
 let sendValue = ref([])
+// 횟수 값
 const inputValue = ref()
+// 팝업 활성
+const popup = ref(false)
 
 const numList = ref([
   {
