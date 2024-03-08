@@ -35,12 +35,23 @@
     </div>
     <div class="rst">
       <span class="tit"> 결과 : </span>
-      <!-- <div class="rstBox"> -->
       <VRst :전달값="sendValue" />
-      <!-- </div> -->
     </div>
 
-    <VPopup v-model="popup" />
+    <transition name="fade">
+      <VPopup
+        v-if="popup"
+        v-model="popupModel"
+        :전달값="sendValue"
+        @자식에서값올리는함수="닫기이벤트(e)"
+      >
+        <template #popContent>
+          <div class="rst mt0">
+            <VRst :전달값="sendValue" />
+          </div>
+        </template>
+      </VPopup>
+    </transition>
   </div>
 </template>
 
@@ -58,6 +69,7 @@ let sendValue = ref([])
 const inputValue = ref()
 // 팝업 활성
 const popup = ref(false)
+const popupModel = ref()
 
 const numList = ref([
   {
@@ -272,6 +284,9 @@ const action = () => {
     쓰까()
   }
   inputValue.value = ''
+
+  // 팝업 활성화
+  popup.value = true
 }
 
 // 단식
@@ -319,6 +334,13 @@ const reset = () => {
   })
   inputValue.value = ''
   sendValue.value = []
+}
+
+// 팝업 닫기
+const 닫기이벤트 = (event) => {
+  console.log('닫기')
+  console.log(event)
+  popup.value = event
 }
 
 const up = (value) => {

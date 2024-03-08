@@ -15,6 +15,9 @@ body {
 }
 
 // common unit
+.mt0 {
+  margin-top: 0 !important;
+}
 .tac {
   text-align: center !important;
 }
@@ -228,6 +231,7 @@ header {
       font-size: 18px;
       line-height: 40px;
       text-align: center;
+      border-bottom: 1px solid #000;
       .close {
         position: absolute;
         top: 50%;
@@ -256,8 +260,9 @@ header {
       }
     }
     .popContent {
+      padding: 20px;
       overflow: auto;
-      background-color: blue;
+      // background-color: blue;
     }
   }
 }
