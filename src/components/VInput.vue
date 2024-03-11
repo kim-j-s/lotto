@@ -44,7 +44,6 @@ const updateInputValue = (event) => {
 // input 초기화
 const iptFoucs = (event) => {
   event.target.value = ''
-  console.log('focus', event.target.value)
 }
 </script>
 

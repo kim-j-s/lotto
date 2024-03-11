@@ -33,21 +33,16 @@
     <div class="btnarea">
       <VButton text="초기화" @click="reset" />
     </div>
-    <div class="rst">
-      <span class="tit"> 결과 : </span>
+    <div class="rst" v-if="sendValue.length && singlePlayDisplay">
+      <span class="tit">결과 : </span>
       <VRst :전달값="sendValue" />
     </div>
 
     <transition name="fade">
-      <VPopup
-        v-if="popup"
-        v-model="popupModel"
-        :전달값="sendValue"
-        @자식에서값올리는함수="닫기이벤트(e)"
-      >
+      <VPopup v-if="multiplePlayDisplay" :전달값="sendValue" @자식에서값올리는함수="닫기이벤트(e)">
         <template #popContent>
           <div class="rst mt0">
-            <VRst :전달값="sendValue" />
+            <VRst :전달값="sendValue" :num-view="true" />
           </div>
         </template>
       </VPopup>
@@ -67,9 +62,10 @@ import VPopup from './components/VPopup.vue'
 let sendValue = ref([])
 // 횟수 값
 const inputValue = ref()
-// 팝업 활성
-const popup = ref(false)
-const popupModel = ref()
+// 복수 결과시 출력
+const multiplePlayDisplay = ref(false)
+// 단수 결과시 출력
+const singlePlayDisplay = ref()
 
 const numList = ref([
   {
@@ -211,6 +207,12 @@ const numList = ref([
 
 // 다회차
 const action = () => {
+  // 새로운 회차 전 값 초기화
+  numList.value.forEach((item) => {
+    item.isChecked = false
+  })
+  sendValue.value = []
+  // console.log('값 초기화', sendValue.value)
   // console.log('inputValue.value : ', inputValue.value)
   // 반복횟수 설정
   if (inputValue.value === undefined || inputValue.value === '') {
@@ -261,14 +263,13 @@ const action = () => {
       return a - b
     })
     // console.log(' --- 결과 --- ', val)
-    // sendValue.value = val
+    // sendValue = val[]
     sendValue.value.push(val)
-    console.log(' --- 결과 --- ', sendValue.value)
+    //console.log(' --- 결과 --- ', sendValue.value)
 
     // 원본 리스트를 forEach로 돌려서 item의 값과 배열의 값이 동일하면 checked 상태로 변경
     for (var i = 0; i < 6; i++) {
       numList.value.forEach((item) => {
-        // console.log(item.text);
         // console.log('까꿍 : ', val[i]);
         if (item.text === val[i]) {
           // console.log('까꿍 : ',item.text, val[i]);
@@ -286,7 +287,8 @@ const action = () => {
   inputValue.value = ''
 
   // 팝업 활성화
-  popup.value = true
+  singlePlayDisplay.value = false
+  multiplePlayDisplay.value = true
 }
 
 // 단식
@@ -325,6 +327,7 @@ const action2 = () => {
     sendValue.value.push(val)
   }
   쓰까()
+  singlePlayDisplay.value = true
 }
 
 // 초기화
@@ -338,13 +341,9 @@ const reset = () => {
 
 // 팝업 닫기
 const 닫기이벤트 = (event) => {
-  console.log('닫기')
-  console.log(event)
-  popup.value = event
-}
-
-const up = (value) => {
-  inputValue.value = value
+  // console.log('닫기')
+  multiplePlayDisplay.value = event
+  reset()
 }
 </script>
 
