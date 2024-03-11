@@ -29,7 +29,7 @@
     </div>
     <div class="btnarea">
       <VButton text="거르면서 뽑기" @click="action2" />
-      <!-- <VButton text="걍 뽑기" @click="action3" /> -->
+      <VButton text="걍 뽑기" @click="action3" />
     </div>
     <div class="btnarea">
       <VButton text="초기화" @click="reset" />
@@ -378,17 +378,6 @@ const action3 = () => {
     // console.log(' --- 결과 --- ', val)
     // sendValue.value = val
     sendValue.value.push(val)
-
-    // 원본 리스트를 forEach로 돌려서 item의 값과 배열의 값이 동일하면 checked 상태로 변경
-    for (var i = 0; i < 6; i++) {
-      numList.value.forEach((item) => {
-        // console.log('까꿍 : ', val[i]);
-        if (item.text === val[i]) {
-          // console.log('까꿍 : ',item.text, val[i]);
-          item.isChecked = true
-        }
-      })
-    }
   }
   쓰까()
   singlePlayDisplay.value = true
