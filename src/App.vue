@@ -23,6 +23,7 @@
         inpClass="tac"
         types="number"
         maxlengths="1"
+        max="8"
         placeholder="횟수 입력"
       />
       <VButton text="여러번 돌리기" @click="action" />

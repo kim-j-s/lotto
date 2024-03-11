@@ -6,6 +6,7 @@
       :type="types"
       :value="modelValue"
       :maxlength="maxlengths"
+      :max="max"
       :placeholder="placeholder"
       @input="updateInputValue"
       @focus="iptFoucs"
@@ -28,6 +29,9 @@ defineProps({
   maxlengths: {
     type: String,
     default: 50
+  },
+  max: {
+    type: Number
   },
   placeholder: {
     type: String,
