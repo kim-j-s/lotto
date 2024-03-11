@@ -208,10 +208,10 @@ const numList = ref([
 // 다회차
 const action = () => {
   // 새로운 회차 전 값 초기화
-  numList.value.forEach((item) => {
-    item.isChecked = false
-  })
-  sendValue.value = []
+  // numList.value.forEach((item) => {
+  //   item.isChecked = false
+  // })
+  // sendValue.value = []
   // console.log('값 초기화', sendValue.value)
   // console.log('inputValue.value : ', inputValue.value)
   // 반복횟수 설정
