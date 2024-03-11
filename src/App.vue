@@ -28,7 +28,8 @@
       <VButton text="여러번 돌리기" @click="action" />
     </div>
     <div class="btnarea">
-      <VButton text="걍 뽑기" @click="action2" />
+      <VButton text="거르면서 뽑기" @click="action2" />
+      <!-- <VButton text="걍 뽑기" @click="action3" /> -->
     </div>
     <div class="btnarea">
       <VButton text="초기화" @click="reset" />
@@ -207,13 +208,6 @@ const numList = ref([
 
 // 다회차
 const action = () => {
-  // 새로운 회차 전 값 초기화
-  // numList.value.forEach((item) => {
-  //   item.isChecked = false
-  // })
-  // sendValue.value = []
-  // console.log('값 초기화', sendValue.value)
-  // console.log('inputValue.value : ', inputValue.value)
   // 반복횟수 설정
   if (inputValue.value === undefined || inputValue.value === '') {
     // console.log('값이 undefined 이거나 없는 경우 ')
@@ -291,9 +285,68 @@ const action = () => {
   multiplePlayDisplay.value = true
 }
 
-// 단식
+// 거르면서 뽑기
 const action2 = () => {
-  sendValue.value = []
+  // numList의 text 값을 모두 추출
+  const 전체배열 = numList.value.map((item) => item.text)
+  // console.log('전체 배열 : ', 전체배열)
+
+  // 5개 추출
+  const 쓰까 = function () {
+    // numList의 checked된 값을 filter로 가져오고 map을 사용하여 text를 추출
+    const printCheckedText = numList.value.filter((item) => item.isChecked).map((item) => item.text)
+    // console.log('선택 된 checkbox : ', printCheckedText);
+
+    // numList의 text 값을 모두 추출
+    const 전체배열 = numList.value.map((item) => item.text)
+    // console.log('전체 배열 : ', 전체배열);
+    const 추출 = 전체배열.filter((item) => !printCheckedText.includes(item))
+    // console.log('추출 : ',추출);
+
+    // 5개 추출
+    let val = []
+    let 추출값가공 = 추출
+    // console.log('가공될 추출 값 : ',추출값가공);
+    for (var i = 0; i < 6; i++) {
+      // console.log('기본 val : ', val);
+      // 섞기
+      const 랜덤값얻기 = 추출[Math.floor(Math.random() * 추출.length)]
+      // console.log('얻은 랜덤 값 : ', 랜덤값얻기)
+      val.push(랜덤값얻기)
+
+      // 동일한 값을 배열 위치 찾기
+      const 가공할꺼 = 추출값가공.indexOf(랜덤값얻기)
+      // console.log('가공할꺼 : ', 가공할꺼)
+
+      // 찾은 배열의 index에 해당하는 값을 제거
+      추출값가공.splice(가공할꺼, 1)
+      // console.log('가공된거 : ', 추출값가공);
+    }
+    // 오름차순 정렬
+    val.sort(function (a, b) {
+      return a - b
+    })
+    // console.log(' --- 결과 --- ', val)
+    // sendValue.value = val
+    sendValue.value.push(val)
+
+    // 원본 리스트를 forEach로 돌려서 item의 값과 배열의 값이 동일하면 checked 상태로 변경
+    for (var i = 0; i < 6; i++) {
+      numList.value.forEach((item) => {
+        // console.log('까꿍 : ', val[i]);
+        if (item.text === val[i]) {
+          // console.log('까꿍 : ',item.text, val[i]);
+          item.isChecked = true
+        }
+      })
+    }
+  }
+  쓰까()
+  singlePlayDisplay.value = true
+}
+
+// 계속 단식 뽑기
+const action3 = () => {
   // numList의 text 값을 모두 추출
   const 전체배열 = numList.value.map((item) => item.text)
   // console.log('전체 배열 : ', 전체배열)
@@ -325,6 +378,17 @@ const action2 = () => {
     // console.log(' --- 결과 --- ', val)
     // sendValue.value = val
     sendValue.value.push(val)
+
+    // 원본 리스트를 forEach로 돌려서 item의 값과 배열의 값이 동일하면 checked 상태로 변경
+    for (var i = 0; i < 6; i++) {
+      numList.value.forEach((item) => {
+        // console.log('까꿍 : ', val[i]);
+        if (item.text === val[i]) {
+          // console.log('까꿍 : ',item.text, val[i]);
+          item.isChecked = true
+        }
+      })
+    }
   }
   쓰까()
   singlePlayDisplay.value = true
