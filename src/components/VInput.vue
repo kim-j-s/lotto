@@ -4,13 +4,14 @@
     <input
       :class="inpClass"
       :type="types"
-      :value="modelValue"
       :maxlength="maxlengths"
       :max="max"
       :placeholder="placeholder"
-      @input="updateInputValue"
       @focus="iptFoucs"
+      v-model="childValue"
     />
+    <!-- :value="modelValue" -->
+    <!-- @input="updateInputValue" -->
   </div>
 </template>
 
@@ -31,7 +32,7 @@ defineProps({
     default: 50
   },
   max: {
-    type: Number
+    type: String
   },
   placeholder: {
     type: String,
@@ -40,10 +41,12 @@ defineProps({
 })
 
 // 값 전달
-const emit = defineEmits(['update:modelValue'])
-const updateInputValue = (event) => {
-  emit('update:modelValue', event.target.value)
-}
+// const emit = defineEmits(['update:modelValue'])
+// const updateInputValue = (event) => {
+//   emit('update:modelValue', event.target.value)
+// }
+
+const childValue = defineModel()
 
 // input 초기화
 const iptFoucs = (event) => {
